@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+	input:focus {
+	  background-color: grey;
+	}
+	textarea {
+	   font-size: 24pt;
+	   font-family: Times New Roman;
+	   display: block;
+	   margin-left: auto;
+	   margin-right: auto;
+	}
+	</style>
+	<title>
+		Visualization Area
+	</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function changey(distance)
+		{
+			document.getElementById("finger").style.top=distance + "px";  
+		}
+		function changex(distance)
+		{
+			document.getElementById("finger").style.left=distance + "px";  
+		}
+	</script>
+
+	
+	
+	<div align = 'left' style="width: 200px; float:left; height:10px;  margin:10px">
+		<h2>Feedback Area</h2>
+		<br>
+		<textarea id = 'feedback' name="" rows="5" cols="20" ></textarea>
+	</div>
+
+	
+	<div align='right' style="width: 360px; float:right; height:10px;  margin:10px">
+		<h2>Trigger Area</h2>
+		<br>
+		<textarea id = 'trigger' name="" rows="10" cols="20"></textarea>
+	</div>
+	<br>
+	<div align='center' style="width: 1200px; float:center; height:10px;  margin:10px">
+		<h2>Finger Movement Tracking</h2>
+		<script type="text/javascript">
+			document.write('<input type="image" id="finger_track" height = 300 src="DEFAULT.jpg">');
+		</script>
+	</div>
+
+	<div align = 'center' style="width: 20px; float:center; height:10px;  margin:250px">
+		<h2>Confidence Level</h2>
+		<br>
+		<textarea id = 'confidence' name="" rows="2" cols="8" ></textarea>
+	</div>
+
+
+	
+	<!-- <form>
+		<script type="text/javascript">
+			window.setTimeout(function ()
+			{
+		        document.getElementById('command').focus();
+		    }, 0);
+		</script>
+		 
+	</form> -->
+
+	<script type="text/javascript">
+
+	currentX = 600;
+	currentY = 230;
+	max_horizontal = 740;
+	min_horozontal = 450;
+	max_vertical = 380;
+	min_vertical = 100;
+	step_x = 35;
+	step_y = 45;
+
+	
+
+	
+
+	document.addEventListener('keydown', function(event) {
+		if(event.keyCode == 37) {
+			document.getElementById("finger_track").src = 'LEFT.jpg';
+			document.getElementById("feedback").value = 'Current Position: Left.'
+			//currentX = Math.max(currentX-step,min_horozontal)
+			//changex(currentX);
+		}
+		else if (event.keyCode == 39) {
+			document.getElementById("finger_track").src = 'RIGHT.jpg';
+			document.getElementById("feedback").value = 'Current Position: Right.'
+			//currentX = Math.min(currentX+step,max_horizontal)
+			//changex(currentX);
+		}
+		else if (event.keyCode == 38) {
+			document.getElementById("finger_track").src = 'UP.jpg';
+			document.getElementById("feedback").value = 'Current Position: Up.'
+			//currentY = Math.max(currentY-step,min_vertical)
+			//changey(currentY);
+		}
+		else if (event.keyCode == 40) {
+			document.getElementById("finger_track").src = 'DOWN.jpg';
+			document.getElementById("feedback").value = 'Current Position: Down.'
+			//currentY = Math.min(currentY+step,max_vertical)
+			//changey(currentY);
+		}
+		else if (event.keyCode == 86) {
+			document.getElementById("finger_track").src = 'DEFAULT.jpg';
+			document.getElementById("feedback").value = 'Current Position: Middle.'
+			
+		}
+
+		/*
+		//z
+		else if (event.keyCode == 90) { 
+			currentX = Math.max(currentX-step_x,min_horozontal)
+			changex(currentX);
+		}
+		//x
+		else if (event.keyCode == 88) {
+			currentX = Math.min(currentX+step_x,max_horizontal)
+			changex(currentX);
+		}
+		//n
+		else if (event.keyCode == 78) {
+			currentY = Math.max(currentY-step_y,min_vertical)
+			changey(currentY);
+		}
+		//m
+		else if (event.keyCode == 77) {
+			currentY = Math.min(currentY+step_y,max_vertical)
+			changey(currentY);
+		}
+		*/
+
+		//left m
+		else if (event.keyCode == 90) { 
+			
+			currentX = Math.max(currentX-step_x,min_horozontal);
+			var confidence = Math.max(1 - Math.abs(Math.max(currentX,490)-490)/100,0);
+			document.getElementById("confidence").value = confidence.toFixed(2);
+			console.log(currentX);
+		}
+		//right x
+		else if (event.keyCode == 88) {
+			
+			currentX = Math.min(currentX+step_x,max_horizontal);
+			var confidence = Math.max(1 - Math.abs(Math.min(700,currentX)-700)/100,0);
+			document.getElementById("confidence").value = confidence.toFixed(2);
+			console.log(currentX);
+		}
+		//down n
+		else if (event.keyCode == 78) {
+			
+			currentY = Math.max(currentY-step_y,min_vertical);
+			var confidence = Math.max(1 - Math.abs(Math.max(currentY,140)-140)/100,0);
+			document.getElementById("confidence").value = confidence.toFixed(2);
+			console.log(currentY);
+		}
+		//up m
+		else if (event.keyCode == 77) {
+			
+			currentY = Math.min(currentY+step_y,max_vertical);
+			var confidence = Math.max(1 - Math.abs(Math.min(currentY,340)-340)/100,0);
+			document.getElementById("confidence").value = confidence.toFixed(2);
+			console.log(currentY);
+		}
+
+		else if (event.keyCode == 80) {
+			
+			currentY = Math.min(currentY+step_y,max_vertical);
+			var confidence = ((1 - Math.abs(currentX-600)/120)+(1 - Math.abs(currentY-230)/120))/2;
+			document.getElementById("confidence").value = confidence.toFixed(2);
+			console.log(currentX);
+			console.log(currentY);	
+		}
+
+
+		else if (event.keyCode == 76) {
+			document.getElementById("feedback").value = 'Finger too right.'
+			document.getElementById("trigger").value = ''
+			
+		}
+
+		else if (event.keyCode == 75) {
+			document.getElementById("feedback").value = 'Finger too low.'
+			document.getElementById("trigger").value = ''
+			
+		}
+
+		else if (event.keyCode == 73) {
+			document.getElementById("feedback").value = 'Finger too high.'
+			document.getElementById("trigger").value = ''
+			
+		}
+
+		else if (event.keyCode == 74) {
+			document.getElementById("feedback").value = 'Finger too left.'
+			document.getElementById("trigger").value = ''
+			
+		}
+
+		else if (event.keyCode == 82) {
+			document.getElementById("feedback").value = 'Finger position great! Now move your finger for selection.'
+			function myFunction(){
+				setTimeout(function(){console.log('Start')},3000);
+			}
+		}
+
+		else if (event.keyCode == 66) {
+			document.getElementById("trigger").value = 'Coffee Maker is Selected.'
+		}
+
+		else if (event.keyCode == 67) {
+			document.getElementById("trigger").value = 'TV is Selected.'
+		}
+		
+		else if (event.keyCode == 68) {
+			document.getElementById("trigger").value = 'Door is Selected.'
+		}
+		else if (event.keyCode == 65) {
+			document.getElementById("trigger").value = 'Printer is Selected.'
+		}
+		else if (event.keyCode == 69) {
+			document.getElementById("trigger").value = 'Monitor is Selected.'
+		}
+		
+		else if (event.keyCode == 13) {
+			//document.getElementById("feedback").style.fontSize = 24;
+			//window.close();
+			
+			currentX = 600;
+			currentY = 230;
+			/*
+			changey(currentY);
+			changex(currentX);
+			*/
+		}
+	});
+	</script>
+
+
+</body>
+</html>

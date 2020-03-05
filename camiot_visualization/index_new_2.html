@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ClearRect Test</title>
+<style type="text/css">
+    textarea { border: none; }
+</style>
+<style>
+  textarea  {  
+   font-family:"Times New Roman", Times, serif;  
+   font-size: 24px;   
+  }
+  .images {
+    position: relative;
+  }
+
+  .leftbtn {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+  }
+</style>
+<img id="circle" height = 300 src="circle.png" style="left: 232px; top: 220px; position: absolute; z-index: -1;"/>
+<img id="finger" height = 100 class="center" src="fingerArrow.png" style="visibility: hidden;"/>
+<div align = 'left' style="width: 200px; float:left; height:10px;  margin:10px">
+	<h2>Feedback Area</h2>
+	<br>
+	<textarea id = 'feedback' name="" rows="8" cols="20" ></textarea>
+</div>
+<div align='right' style="width: 360px; float:right; height:10px;  margin:10px">
+	<h2>Trigger Area</h2>
+	<br>
+	<textarea id = 'trigger' name="" rows="10" cols="20"></textarea>
+</div>
+<div class="leftbtn">
+  <img id='bkimg' src="pikachu.png" alt="binary image" width="224" height="224">
+</div>
+
+<script>
+var canvas, ctx, fingerImg, square, rightKey = false, leftKey = false, upKey = false, downKey = false;
+var degree, finLen
+
+function init() {
+  finLen = 0
+  canvas = document.getElementById('canvas');
+  ctx = canvas.getContext('2d');
+  fingerImg = document.getElementById("finger");
+  square = {x:-80,y:-240,w:160,h:240};
+  draw();
+  document.addEventListener('keydown',keyDown,false);
+  document.addEventListener('keyup',keyUp,false);
+}
+function clearRect() {
+  ctx.clearRect(square.x,square.y-400,square.w,square.h+800);
+}
+function drawSquare() {
+  ctx.resetTransform();
+  ctx.translate(250, 500);
+  ctx.rotate(degree*Math.PI/180);
+
+
+  /*
+  if (rightKey){
+  	// ctx.rotate(degree*Math.PI/180); //square.x += 5;
+  	document.getElementById("feedback").value = 'Right';
+  }
+  else if (leftKey){ 
+  	// ctx.rotate(degree*Math.PI/180); //square.x -= 5;
+  	document.getElementById("feedback").value = 'Left';
+  }
+  if (upKey){
+  	// ctx.rotate(degree*Math.PI/180); //square.y -= 5;
+  	document.getElementById("feedback").value = 'Up';
+  } 
+  else if (downKey){
+  	// ctx.rotate(degree*Math.PI/180); //square.y += 5;
+  	document.getElementById("feedback").value = 'Down';
+  }
+  */
+  ctx.fillStyle = '#0f0';
+  // ctx.rotate(degree*Math.PI/180); //
+  // ctx.fillRect(square.x,square.y,square.w,square.h);
+  ctx.drawImage(fingerImg,square.x,square.y,square.w,square.h);
+}
+
+
+
+function keyDown(e) {
+  
+  document.getElementById("bkimg").src="binary.png?"+Math.random();
+
+  
+  
+  if (e.keyCode == 39) rightKey = true;
+  else if (e.keyCode == 37) leftKey = true;
+  if (e.keyCode == 38) upKey = true;
+  else if (e.keyCode == 40) downKey = true;
+  if (e.keyCode >= 48 && e.keyCode <= 57){
+    if (e.keyCode == 50){
+      // ctx.rotate(degree*Math.PI/180); //square.x += 5;
+      document.getElementById("feedback").value = 'Left';
+    }
+    else if (e.keyCode == 52){ 
+      // ctx.rotate(degree*Math.PI/180); //square.x -= 5;
+      document.getElementById("feedback").value = 'Mid-Left';
+    }
+    else if (e.keyCode == 54){
+      // ctx.rotate(degree*Math.PI/180); //square.y -= 5;
+      document.getElementById("feedback").value = 'Mid-Right';
+    } 
+    else if (e.keyCode == 56){
+      // ctx.rotate(degree*Math.PI/180); //square.y += 5;
+      document.getElementById("feedback").value = 'Right';
+    }
+    degree = -90 + 20*(e.keyCode-48);
+  }
+  // if (e.keyCode >= 96 && e.keyCode <= 105){
+  //   finLen =  25*(e.keyCode-96);
+  //   square.y = -80 - finLen
+  //   square.h = 240 + finLen
+  // }
+  // a
+  if (e.keyCode == 78){
+    square.y = -240
+    square.h = 240
+  }
+  // b
+  else if (e.keyCode == 77){
+    square.y = -80
+    square.h = 240 - 160
+  }
+  draw()
+}
+
+function keyUp(e) {
+  if (e.keyCode == 39) rightKey = false;
+  else if (e.keyCode == 37) leftKey = false;
+  if (e.keyCode == 38) upKey = false;
+  else if (e.keyCode == 40) downKey = false;
+}
+function draw() {
+  clearRect();
+  drawSquare();
+}
+window.onload = init;
+</script>
+</head>
+
+<body>
+<canvas id="canvas" width="500" height="500"></canvas>
+</body>
+</html>

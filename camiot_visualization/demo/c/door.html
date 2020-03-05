@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+<h1>Printer</h1>
+
+<p id="demo"></p>
+<p> left to open, right to close </p>
+
+<script>
+document.addEventListener('keydown', function(event) {
+	if(event.keyCode == 37) {
+		window.alert('Open.');
+		window.close();
+	}
+	else if (event.keyCode == 39) {
+		window.alert('Closed.');
+		window.close();
+	}
+	
+});
+
+</script>
+
+<button class="button" onClick="window.open('https://www.youtube.com/watch?v=JGwWNGJdvx8');">
+     <span class="icon">Video</span>
+</button>
+
+<button type="button" onclick="javascript:window.close()">Discard</button>
+
+<canvas id="myChart" width="400" height="400"></canvas>
+<!-- <canvas id="myChart2" width="400" height="400"></canvas> -->
+
+</html>

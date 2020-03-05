@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+<h1>Printer</h1>
+
+<p id="demo"></p>
+<p> left = decease number, right = increase number, up = Print, down = stop </p>
+
+<div>
+	<h4>Feedback Area</h4>
+	<br>
+	
+	<textarea id = 'feedback' name="" rows="1" cols="50"></textarea>
+	
+<div>
+
+<script>
+	numPage = 1
+	document.getElementById("feedback").value = numPage;
+	document.addEventListener('keydown', function(event) {
+		if(event.keyCode == 37) {
+			numPage = Math.max(1,numPage-1);
+			document.getElementById("feedback").value = numPage;
+		}
+		else if (event.keyCode == 39) {
+			numPage = numPage+1;
+			document.getElementById("feedback").value = numPage;
+		}
+		else if (event.keyCode == 13) {
+			window.alert('Print Page# ' + numPage);
+			window.close();
+		}
+		else if (event.keyCode == 40) {
+			window.alert('Print Page# ' + numPage);
+			window.close();
+		}
+		
+	})
+</script>
+
+<!-- <button class="button" onClick="window.open('https://www.youtube.com/watch?v=JGwWNGJdvx8');">
+     <span class="icon">Video</span>
+</button> -->
+
+<button type="button" onclick="javascript:window.close()">Discard</button>
+
+<canvas id="myChart" width="400" height="400"></canvas>
+<!-- <canvas id="myChart2" width="400" height="400"></canvas> -->
+</body>
+</html>
