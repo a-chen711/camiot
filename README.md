@@ -1,5 +1,5 @@
 # Project CamIoT
-UCLA Human Computer Interaction Lab - Principal Investigator Xiang "Anthony" Chen
+UCLA Human Computer Interaction Lab - Principal Investigator Xiang "Anthony" Chen.
 In collaboration with Amirali Omidfar, Nicolas Cheng, and Ximeng Liu.
 
 Project CamIoT is a wrist-mounted device that interacts with appliances via camera-captured finger motions. The project utilizes a
