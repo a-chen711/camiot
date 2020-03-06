@@ -1,5 +1,6 @@
 # Project CamIoT
-UCLA Human Computer Interaction Lab
+UCLA Human Computer Interaction Lab - Principal Investigator Xiang "Anthony" Chen.
+In collaboration with Amirali Omidfar, Nicolas Cheng, and Ximeng Liu.
 
 Project CamIoT is a wrist-mounted device that interacts with appliances via camera-captured finger motions. The project utilizes a
 Raspberry Pi Zero W and a Raspberry Pi IR Camera. The user activates the camera by performing an up swing motion from their side so that
