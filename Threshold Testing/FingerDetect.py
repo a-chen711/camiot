@@ -5,10 +5,16 @@ import numpy as np
 from skimage import filters
 from skimage.measure import compare_ssim  
 from skimage.segmentation import flood, flood_fill
+import skimage
+import skimage.viewer
+import skimage.feature
+import sys
 import argparse
 import imutils
 import cv2
 import matplotlib.pyplot as plt  
+from  PyQt5 import QtCore
+from PyQt5 import QtGui
 
 def direction(image):
 	height, width = image.shape
@@ -137,7 +143,6 @@ def image_bright():
 	cv2.waitKey(0)
 
 def FingerBottom(image): #pass in the flood filled image
-	#get height and width of image
 	height,width = image.shape
 
 	white_thr = 230
@@ -152,6 +157,9 @@ def FingerBottom(image): #pass in the flood filled image
 	t=0
 	w=470
 	print("height: ",height," width: ",width)
+	cv2.imshow("GaussianBlurpic",image)
+
+	print(image[:,w])
 
 	# get the white range for each line
 	for j in range(width):
@@ -175,8 +183,9 @@ def FingerBottom(image): #pass in the flood filled image
 	print("ls: ",ls,"rs: ", rs, "t: ",t)
 	
 	midPixel=(rs+ls)/2
-	print("midpixel= " + str(midPixel))
-	return midPixel, w
+	print(midPixel)
+	return midPixel,w
+
 
 def floodfill(image):
 	ir_in = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY);
@@ -195,9 +204,65 @@ def floodfill(image):
 	ir_out = ir_th | ir_floodfill_inv
 
 	#cv2.imshow("Flood", ir_floodfill)
-	#cv2.imshow("Inverted Floodfill", ir_floodfill_inv)
-	cv2.imwrite("randominv.jpg", ir_floodfill_inv)
+	cv2.imshow("Inverted Floodfill", ir_floodfill_inv)
+	#cv2.imwrite("randominv.jpg", ir_floodfill_inv)
 	return ir_floodfill_inv
+
+def edgedetect():
+	img = cv2.imread('Test2.jpg',0)
+	edges = cv2.Canny(img,10,230)
+	plt.subplot(121),plt.imshow(img,cmap = 'gray')
+	plt.title('Original Image'), plt.xticks([]), plt.yticks([])
+	plt.subplot(122),plt.imshow(edges,cmap = 'gray')
+	plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
+	plt.show()
+
+def fingerBottomToTop(image):
+	height, width = image.shape
+	cv2.threshold(image,127,255,cv2.THRESH_BINARY)
+	
+	white_thr = 240
+	counter=0
+	left=0
+	right=0
+	thickness=0
+	#left and right boundaries for scanning
+	lb=0		
+	rb=width-1
+	t=0
+	w=470
+	midPixels=[]
+	for i in range (0,height-10,10):
+		for j in range(lb,rb,1):
+			if image[w-i,j] > white_thr:
+				if (counter==0):
+					left=j
+				elif (counter > 0):
+					right=j
+					thickness=right-left
+				counter=counter+1
+			else:
+				if(t<thickness):
+					ls=left
+					rs=right
+					t=rs-ls
+				left=0
+				right=0
+				thickness=0
+				counter=0		
+		midPixels.append((w-i,(rs+ls)/2))
+		
+		lb=ls
+		rb=rs
+		ls=0
+		rs=0
+		t=0
+		thickness=0
+		counter=0		
+	#image[midPixels]=0
+	#cv2.imshow*()		
+	return midPixels	
+
 
 def fingerFinder():
 	ap=argparse.ArgumentParser()
@@ -227,10 +292,12 @@ def fingerFinder():
 	cv2.waitKey(0)
 	# find the white area of the finger 
 
-fingerFinder()
+#fingerFinder()
 #imagediff()
 #image_bright()
 #floodfill()
 #example()
-
+#edgedetect()
+midPixels = fingerBottomToTop(Test3.jpg)
+print(midPixels)
 	

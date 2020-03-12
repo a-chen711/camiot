@@ -60,6 +60,7 @@ def on_message(client, userdata, msg):
     
     if msg.topic == 'image': 
         t1 = time.time()
+        print("message received time = " + str(t1))
         with open('1.png', "wb") as fh:
             fh.write(base64.decodebytes(msg.payload))
         info=connect.recv(1024)
