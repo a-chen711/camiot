@@ -1,0 +1,35 @@
+{
+  "appliance": [
+    {
+      "appliance_name": "TV",
+      "functions": [ "volume", "channel" ],
+      "operations_1": [ "volume up", "volume down" ],
+      "operations_2": [ "channel up", "channel down" ]
+    },
+
+    {
+      "appliance_name": "printer",
+      "functions": [ "print page" ],
+      "operations_1": [ "print" ]
+    },
+
+    {
+      "appliance_name": "lamp",
+      "functions": [ "adjust brightness" ],
+      "operations_1": [ "brighten", "darken" ]
+    },
+
+    {
+      "appliance_name": "coffee maker",
+      "functions": [ "brew coffee" ],
+      "operations_1": [ "brew" ]
+    },
+
+    {
+      "appliance_name": "toaster",
+      "functions": [ "toast bread" ],
+      "operations_1": ["toast"]
+    }
+
+  ]
+}

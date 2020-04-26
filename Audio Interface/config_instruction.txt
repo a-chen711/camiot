@@ -1,0 +1,10 @@
+*config.json syntax*
+/*
+  "appliance_name": "name of appliance",
+  "functions": self explanatory
+  "operations_1": list the operations of the first function 
+  "operatoins_2": list the operations of the second function
+  Operations typically should have an ending such that "ing" can be added on and it will 
+  be grammatically correct. 
+  FUNCTIONS AND OPERATIONS MUST BE IN LIST FORMAT even if there is only one operation or one function. 
+*/
