@@ -4,6 +4,9 @@ In collaboration with Amirali Omidfar and Yuan Liang.
 
 Project CamIoT is a wrist-mounted device that interacts with appliances via camera-captured finger motions. The project utilizes a
 Raspberry Pi Zero W, a Raspberry Pi IR Camera, and a speaker. 
+
+The most recent code is in the New Code Folder
+
 # Phase 1: Gesture Detection and Appliance Recognition
 The user activates the camera by raising their arm from their side so as to point at an appliance. I trained the device with TensorFlow
 Lite to recognize this motion over a few hundred trials. After detecting the user raising their arm, the device begins taking photos of the user's
